@@ -1,0 +1,9 @@
+# 目前 scripts/fetch_news.py 與 scripts/build_html.py
+# 只使用 Python 標準函式庫（json, os, re, urllib, datetime），
+# 不需要額外安裝套件。
+#
+# 保留這個檔案是為了未來如果要擴充功能（例如改用 requests、
+# 或串接其他新聞 API SDK）時，方便直接在這裡加上套件名稱，
+# GitHub Actions 的 workflow 也已經預留了安裝步驟可以使用：
+#
+#   pip install -r requirements.txt
