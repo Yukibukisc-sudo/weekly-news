@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三地週報 — 上週重大新聞</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Zen+Old+Mincho:wght@400;600;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#FBF3E7;
+    --ink-2:#FFFDF8;
+    --paper:#2B2118;
+    --paper-dim:#7A6F60;
+    --tw:#E8553C;
+    --tw-dim:#fde4dc;
+    --jp:#3A6FA8;
+    --jp-dim:#dcebf7;
+    --wd:#D9A416;
+    --wd-dim:#fbf0d2;
+    --fin:#2F9E63;
+    --fin-dim:#dbf3e6;
+    --ai:#9854D4;
+    --ai-dim:#f0e3fa;
+    --ent:#E0468C;
+    --ent-dim:#fce0ed;
+    --sp:#F2841D;
+    --sp-dim:#fdead2;
+    --line: rgba(43,33,24,0.13);
+    --serif: 'Noto Serif TC', serif;
+    --mincho: 'Zen Old Mincho', serif;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Noto Sans TC', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--wd); color:var(--ink); }
+
+  a{color:inherit; text-decoration:none;}
+
+  /* ===== Header (masthead, broadsheet-style) ===== */
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:1200px;
+    margin:0 auto;
+    padding:10px 24px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.03em;
+    color:var(--paper-dim);
+    border-bottom:1px solid var(--line);
+  }
+  .edition-bar .ed-date{ color:var(--paper); }
+  header{
+    position:relative;
+    padding:36px 24px 36px;
+    border-bottom:none;
+    background:var(--ink);
+    max-width:1200px;
+    margin:0 auto;
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    left:24px;
+    right:24px;
+    bottom:0;
+    height:10px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='10' viewBox='0 0 44 10'%3E%3Cpath d='M0 5 Q5.5 0 11 5 T22 5 T33 5 T44 5' fill='none' stroke='%232B2118' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;
+    background-size:44px 10px;
+  }
+  .masthead-row{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+    border-bottom:1px solid var(--line);
+    padding-bottom:22px;
+  }
+  .masthead-eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+    margin-bottom:10px;
+  }
+  .masthead-eyebrow .dot{ color:var(--wd); }
+  h1.masthead{
+    font-family:var(--mincho);
+    font-size:clamp(2.2rem, 6vw, 3.8rem);
+    font-weight:900;
+    letter-spacing:0.01em;
+    line-height:1.05;
+  }
+  h1.masthead .accent{ color:var(--tw); position:relative; display:inline-block; }
+  .accent-star{
+    position:absolute;
+    top:-0.35em;
+    right:-0.5em;
+    width:0.5em;
+    height:0.5em;
+    color:var(--wd);
+    transform:rotate(18deg);
+  }
+  .masthead-sub{
+    margin-top:10px;
+    font-size:14.5px;
+    color:var(--paper-dim);
+    max-width:460px;
+  }
+  .week-picker{
+    position:relative;
+    flex-shrink:0;
+  }
+  .week-range{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    border:2px solid var(--paper);
+    border-radius:100px;
+    padding:9px 18px;
+    background:none;
+    color:var(--paper);
+    cursor:pointer;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .week-range:hover{ background:rgba(43,33,24,0.04); transform:translateY(-2px); }
+  .week-picker-chevron{
+    font-size:10px;
+    color:var(--paper-dim);
+    transition:transform .25s ease;
+  }
+  .week-picker.open .week-picker-chevron{ transform:rotate(180deg); }
+  .week-range .pulse{
+    width:6px; height:6px; border-radius:50%;
+    background:#2F9E5C;
+    box-shadow:0 0 0 0 rgba(47,158,92,0.5);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(47,158,92,0.45); }
+    70%{ box-shadow:0 0 0 7px rgba(47,158,92,0); }
+    100%{ box-shadow:0 0 0 0 rgba(47,158,92,0); }
+  }
+  .week-picker-panel{
+    position:absolute;
+    top:calc(100% + 8px);
+    right:0;
+    min-width:260px;
+    max-height:340px;
+    overflow-y:auto;
+    background:var(--ink);
+    border:2px solid var(--paper);
+    border-radius:20px;
+    z-index:60;
+    display:none;
+    box-shadow:0 12px 28px rgba(43,33,24,0.18);
+  }
+  .week-picker.open .week-picker-panel{ display:block; }
+  .week-option{
+    display:block;
+    width:100%;
+    text-align:left;
+    padding:11px 16px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    background:none;
+    border:none;
+    border-bottom:1px solid var(--line);
+    color:var(--paper);
+    cursor:pointer;
+  }
+  .week-option:last-child{ border-bottom:none; }
+  .week-option:hover{ background:rgba(43,33,24,0.05); }
+  .week-option.active{
+    background:rgba(43,33,24,0.06);
+    font-weight:700;
+  }
+  .week-option .week-option-edition{
+    color:var(--paper-dim);
+    margin-right:8px;
+  }
+  #updated-stamp{ color:var(--paper); }
+
+  /* ===== Dropdown menu (click to open) ===== */
+  .menu-bar{
+    position:sticky;
+    top:0;
+    z-index:40;
+    background:var(--ink);
+    border-bottom:1px solid var(--line);
+  }
+  .menu-bar-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    gap:0;
+  }
+  .menu-toggle{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.04em;
+    padding:16px 18px 16px 0;
+    background:none;
+    border:none;
+    color:var(--paper);
+    cursor:pointer;
+  }
+  .menu-toggle .bars{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    width:18px;
+  }
+  .menu-toggle .bars span{
+    display:block;
+    height:2px;
+    background:var(--paper);
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .menu-bar.open .menu-toggle .bars span:nth-child(1){ transform:translateY(5px) rotate(45deg); }
+  .menu-bar.open .menu-toggle .bars span:nth-child(2){ opacity:0; }
+  .menu-bar.open .menu-toggle .bars span:nth-child(3){ transform:translateY(-5px) rotate(-45deg); }
+  .menu-toggle .chevron{
+    font-size:10px;
+    color:var(--paper-dim);
+    transition:transform .25s ease;
+  }
+  .menu-bar.open .menu-toggle .chevron{ transform:rotate(180deg); }
+
+  .menu-current{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--paper-dim);
+    border-left:1px solid var(--line);
+    padding-left:18px;
+  }
+
+  .menu-panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s cubic-bezier(.34,1.56,.64,1);
+    border-bottom:1px solid transparent;
+  }
+  .menu-bar.open .menu-panel{
+    max-height:600px;
+    border-bottom:1px solid var(--line);
+  }
+  .menu-panel-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding:6px 24px 22px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+    gap:10px;
+  }
+  .menu-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 16px;
+    border:2px solid var(--line);
+    border-radius:18px;
+    color:var(--paper);
+    transition:background .15s ease, border-color .15s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
+  }
+  .menu-item:hover{ transform:translateY(-3px); }
+  .menu-item .menu-item-num{
+    font-family:var(--mono);
+    font-size:12px;
+    opacity:0.5;
+  }
+  .menu-item .menu-item-label{
+    font-family:var(--serif);
+    font-size:16px;
+    font-weight:700;
+    flex:1;
+  }
+  .menu-item .menu-item-label small{
+    display:block;
+    font-family:var(--mono);
+    font-size:10.5px;
+    font-weight:400;
+    letter-spacing:0.06em;
+    color:var(--paper-dim);
+    margin-top:3px;
+  }
+  .menu-item .menu-item-count{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--paper-dim);
+  }
+  .menu-item:hover{ background:rgba(43,33,24,0.04); }
+  .menu-item[data-region="tw"]:hover{ border-color:var(--tw); }
+  .menu-item[data-region="jp"]:hover{ border-color:var(--jp); }
+  .menu-item[data-region="wd"]:hover{ border-color:var(--wd); }
+  .menu-item[data-region="fin"]:hover{ border-color:var(--fin); }
+  .menu-item[data-region="ai"]:hover{ border-color:var(--ai); }
+  .menu-item[data-region="ent"]:hover{ border-color:var(--ent); }
+  .menu-item[data-region="sp"]:hover{ border-color:var(--sp); }
+  .menu-item[data-region="tw"] .menu-item-num{ color:var(--tw); opacity:1; }
+  .menu-item[data-region="jp"] .menu-item-num{ color:var(--jp); opacity:1; }
+  .menu-item[data-region="wd"] .menu-item-num{ color:var(--wd); opacity:1; }
+  .menu-item[data-region="fin"] .menu-item-num{ color:var(--fin); opacity:1; }
+  .menu-item[data-region="ai"] .menu-item-num{ color:var(--ai); opacity:1; }
+  .menu-item[data-region="ent"] .menu-item-num{ color:var(--ent); opacity:1; }
+  .menu-item[data-region="sp"] .menu-item-num{ color:var(--sp); opacity:1; }
+  .menu-item.menu-item-auto{ border-style:dashed; }
+
+  /* ===== Region sections ===== */
+  .region{
+    padding:80px 24px 40px;
+    max-width:1080px;
+    margin:0 auto;
+    scroll-margin-top:90px;
+  }
+
+  /* ===== 單分類模式：點選單裡的分類後，只顯示該分類，其餘隱藏 ===== */
+  body.single-mode .region{ display:none; }
+  body.single-mode .region.region-active{ display:block; padding-top:48px; }
+  body.single-mode .mechanism{ display:none; }
+
+  .back-home-bar{
+    display:none;
+    max-width:1080px;
+    margin:0 auto;
+    padding:18px 24px 0;
+  }
+  body.single-mode .back-home-bar{ display:block; }
+  .back-home-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--paper);
+    background:none;
+    border:2px solid var(--line);
+    border-radius:100px;
+    padding:9px 18px;
+    cursor:pointer;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .back-home-btn:hover{ border-color:var(--paper); transform:translateX(-2px); }
+  .back-home-btn .arrow{ font-size:14px; }
+
+  /* ===== 分類進場轉場動畫：全螢幕地圖剪影 ===== */
+  .region-transition{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    background:var(--ink);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .35s ease;
+  }
+  .region-transition.show{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .region-transition-shape{
+    width:min(46vw, 280px);
+    height:min(46vw, 280px);
+    transform:scale(0.82);
+    transition:transform .55s cubic-bezier(.34,1.56,.64,1);
+  }
+  .region-transition.show .region-transition-shape{
+    transform:scale(1);
+  }
+  .region-transition-label{
+    font-family:var(--serif);
+    font-size:clamp(1.6rem, 5vw, 2.6rem);
+    font-weight:900;
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .4s ease .1s, transform .4s ease .1s;
+  }
+  .region-transition.show .region-transition-label{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .region-transition-sub{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--paper-dim);
+    opacity:0;
+    transition:opacity .4s ease .18s;
+  }
+  .region-transition.show .region-transition-sub{ opacity:1; }
+  @media (prefers-reduced-motion: reduce){
+    .region-transition, .region-transition-shape, .region-transition-label, .region-transition-sub{ transition:none; }
+  }
+
+  .region-head{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:8px;
+    padding-bottom:20px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8' viewBox='0 0 40 8'%3E%3Cpath d='M0 4 Q5 0 10 4 T20 4 T30 4 T40 4' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;
+    background-position:bottom;
+    background-size:40px 8px;
+  }
+  .region-num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:currentColor;
+    flex-shrink:0;
+    transform:rotate(-4deg);
+  }
+  .region-num span{
+    display:inline-block;
+    transform:rotate(4deg);
+    font-family:var(--mono);
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink-2);
+  }
+  .region-title{
+    font-family:var(--serif);
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    font-weight:900;
+    flex:1;
+  }
+  .region-title small{
+    display:block;
+    font-family:var(--sans);
+    font-size:13px;
+    font-weight:400;
+    letter-spacing:0.1em;
+    opacity:0.6;
+    margin-top:6px;
+  }
+  .region-count{
+    font-family:var(--mono);
+    font-size:12px;
+    font-weight:700;
+    padding:5px 12px;
+    border:2px dashed currentColor;
+    border-radius:100px;
+    transform:rotate(2deg);
+    flex-shrink:0;
+  }
+  .region-doodle{
+    width:34px;
+    height:34px;
+    flex-shrink:0;
+    opacity:0.85;
+  }
+  .region[data-region="tw"]{ color:var(--tw); --tag-bg:var(--tw); }
+  .region[data-region="jp"]{ color:var(--jp); --tag-bg:var(--jp); }
+  .region[data-region="wd"]{ color:var(--wd); --tag-bg:var(--wd); }
+  .region[data-region="fin"]{ color:var(--fin); --tag-bg:var(--fin); }
+  .region[data-region="ai"]{ color:var(--ai); --tag-bg:var(--ai); }
+  .region[data-region="ent"]{ color:var(--ent); --tag-bg:var(--ent); }
+  .region[data-region="sp"]{ color:var(--sp); --tag-bg:var(--sp); }
+
+  .news-list{
+    margin-top:8px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    grid-auto-rows:140px;
+    gap:22px;
+  }
+
+  /* ===== Flip card ===== */
+  .news-item{
+    perspective:1400px;
+    grid-row:span 2;
+    color:var(--paper);
+  }
+  .news-item.tall{ grid-row:span 3; }
+  .news-item-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform .6s cubic-bezier(.34,1.56,.64,1);
+    transform-style:preserve-3d;
+    cursor:pointer;
+  }
+  .news-item.flipped .news-item-inner{ transform:rotateY(180deg); }
+  .news-card-face{
+    position:absolute;
+    inset:0;
+    backface-visibility:hidden;
+    border:2px solid var(--line);
+    border-radius:26px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    background:var(--ink-2);
+    box-shadow:0 4px 0 rgba(43,33,24,0.06);
+  }
+  .news-card-front{
+    justify-content:space-between;
+  }
+  .news-card-back{
+    transform:rotateY(180deg);
+    background:var(--paper);
+    color:var(--ink);
+    justify-content:space-between;
+  }
+  /* 進場動畫：初始隱藏並下移，被偵測到進入畫面後加上 .in-view 觸發浮現 */
+  .news-item{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .news-item.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .news-item:hover .news-item-inner{ transform:translateY(-4px); }
+  .news-item.flipped:hover .news-item-inner{ transform:rotateY(180deg) translateY(-4px); }
+
+  .news-rank{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:currentColor;
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:700;
+    color:inherit;
+    transform:rotate(-6deg);
+  }
+  .news-rank span{ color:var(--ink-2); display:inline-block; transform:rotate(6deg); }
+  .news-date{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.04em;
+    padding:4px 11px;
+    border-radius:100px;
+    background:rgba(43,33,24,0.05);
+    color:inherit;
+    border:1.5px solid currentColor;
+    align-self:flex-start;
+  }
+  .news-card-back .news-date{ background:rgba(247,244,237,0.08); }
+  .news-title{
+    font-family:var(--serif);
+    font-size:17px;
+    font-weight:700;
+    color:inherit;
+    line-height:1.45;
+    margin-top:12px;
+    display:-webkit-box;
+    -webkit-line-clamp:4;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .region[data-region="jp"] .news-title{ font-family:var(--mincho); }
+  .news-desc{
+    font-size:13.5px;
+    color:inherit;
+    opacity:0.88;
+    line-height:1.7;
+    overflow-y:auto;
+  }
+  .news-tag{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.02em;
+    color:var(--ink-2);
+    background:var(--tag-bg, var(--paper));
+    padding:4px 10px;
+    border-radius:100px;
+  }
+  .flip-hint{
+    font-family:var(--mono);
+    font-size:10.5px;
+    opacity:0.45;
+    align-self:flex-end;
+  }
+  .flip-hint::after{ content:" ↻"; }
+
+  /* ===== Auto-update / footer mechanism panel ===== */
+  .mechanism{
+    max-width:1080px;
+    margin:60px auto 0;
+    padding:0 24px 100px;
+  }
+  .mechanism-card{
+    border:2px solid var(--line);
+    border-radius:28px;
+    padding:40px clamp(20px,5vw,48px);
+    background:linear-gradient(160deg, rgba(43,33,24,0.035), rgba(43,33,24,0));
+  }
+  .mechanism h2{
+    font-family:var(--serif);
+    font-size:1.5rem;
+    margin-bottom:14px;
+  }
+  .mechanism p{
+    color:var(--paper-dim);
+    font-size:14.5px;
+    max-width:640px;
+    margin-bottom:24px;
+  }
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:18px;
+  }
+  .step{
+    border:2px solid var(--line);
+    border-radius:18px;
+    padding:18px;
+  }
+  .step .step-num{
+    font-family:var(--mono);
+    color:var(--wd);
+    font-size:12px;
+    margin-bottom:8px;
+  }
+  .step h3{ font-size:14.5px; margin-bottom:6px; font-weight:700; }
+  .step p{ font-size:13px; margin-bottom:0; color:var(--paper-dim); }
+
+  .refresh-row{
+    margin-top:28px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    background:var(--paper);
+    color:var(--ink);
+    border:none;
+    padding:13px 24px;
+    border-radius:100px;
+    cursor:pointer;
+    transition:transform .15s ease, opacity .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); opacity:0.92; }
+  .btn:active{ transform:translateY(0); }
+  .btn:focus-visible{ outline:2px solid var(--wd); outline-offset:3px; }
+  .btn-note{ font-size:12.5px; color:var(--paper-dim); font-family:var(--mono); }
+
+  footer{
+    text-align:center;
+    padding:32px 24px 48px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--paper-dim);
+    border-top:1px solid var(--line);
+  }
+
+  @media (max-width:560px){
+    .news-list{ grid-template-columns:1fr; }
+    header{ padding:32px 18px 24px; }
+    .masthead-row{ flex-direction:column; align-items:flex-start; }
+    .menu-panel-inner{ grid-template-columns:1fr; }
+    .edition-bar{
+      font-size:10.5px;
+      padding:8px 18px;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:3px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .week-range .pulse{ animation:none; }
+    .news-item-inner{ transition:none; }
+    .news-item{ transition:none; opacity:1; transform:none; }
+    .menu-panel{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="region-transition" id="regionTransition">
+  <div class="region-transition-shape" id="regionTransitionShape"></div>
+  <div class="region-transition-label" id="regionTransitionLabel"></div>
+  <div class="region-transition-sub" id="regionTransitionSub"></div>
+</div>
+
+<div class="edition-bar">
+  <span>WEEKLY BRIEF · 第 <span id="editionNum">25</span> 期</span>
+  <span class="ed-date" id="edBarDate">2026年06月28日</span>
+</div>
+
+<header>
+  <div class="masthead-row">
+    <div>
+      <div class="masthead-eyebrow" id="mastheadEyebrow">台灣 / 日本 / 世界 / 財經 / 生成式AI / 影視圈 / 運動 <span class="dot">·</span> 每週彙整</div>
+      <h1 class="masthead" id="mastheadTitle">上週<span class="accent">重<svg class="accent-star" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2 7h7l-5.5 4.5L17.5 21 12 16.5 6.5 21 8.5 13.5 3 9h7z" fill="currentColor"/></svg></span>大新聞</h1>
+      <p class="masthead-sub" id="mastheadSub">彙整七大主題上週十大事件，用一頁掃過上週發生的事。</p>
+    </div>
+    <div class="week-picker" id="weekPicker">
+      <button class="week-range" id="weekRangeBtn" aria-expanded="false" aria-controls="weekPickerPanel">
+        <span class="pulse"></span>
+        <span id="weekRangeText">本期：2026/06/22 — 06/28</span>
+        <span class="week-picker-chevron">▾</span>
+      </button>
+      <div class="week-picker-panel" id="weekPickerPanel">
+        <!-- 週次選項由 JS 動態產生 -->
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="menu-bar" id="menuBar">
+  <div class="menu-bar-inner">
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="menuPanel">
+      <span class="bars"><span></span><span></span><span></span></span>
+      <span id="menuToggleLabel">選單</span>
+      <span class="chevron">▾</span>
+    </button>
+    <span class="menu-current" id="menuCurrent">瀏覽全部分類</span>
+  </div>
+  <div class="menu-panel" id="menuPanel">
+    <div class="menu-panel-inner" id="menuPanelInner">
+      <!-- 選單項目由 JS 依目前語言動態產生 -->
+    </div>
+  </div>
+</div>
+
+<div class="back-home-bar">
+  <button class="back-home-btn" id="backHomeBtn">
+    <span class="arrow">←</span>
+    <span id="backHomeLabel">返回首頁（顯示全部分類）</span>
+  </button>
+</div>
+
+<!-- ============ TAIWAN ============ -->
+<section class="region" id="tw" data-region="tw">
+  <div class="region-head">
+    <span class="region-num"><span>01</span></span>
+    <h1 class="region-title" id="regionTitle-tw"></h1>
+    <span class="region-count" id="regionCount-tw"></span>
+    <svg class="region-doodle" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 6c8 0 12 5 12 10s-4 9-10 9-8-3-8-7 3-6 6-6 4 2 4 4-1 3-3 3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="news-list" id="list-tw"></div>
+</section>
+
+<!-- ============ JAPAN ============ -->
+<section class="region" id="jp" data-region="jp">
+  <div class="region-head">
+    <span class="region-num"><span>02</span></span>
+    <h1 class="region-title" id="regionTitle-jp"></h1>
+    <span class="region-count" id="regionCount-jp"></span>
+    <svg class="region-doodle" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="22" r="9" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M20 6v4M20 34v2M6 20h3M34 20h2M9.5 9.5l2.5 2.5M30.5 9.5l-2.5 2.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="news-list" id="list-jp"></div>
+</section>
+
+<!-- ============ WORLD ============ -->
+<section class="region" id="wd" data-region="wd">
+  <div class="region-head">
+    <span class="region-num"><span>03</span></span>
+    <h1 class="region-title" id="regionTitle-wd"></h1>
+    <span class="region-count" id="regionCount-wd"></span>
+    <svg class="region-doodle" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M7 20h26M20 7c4 3 6 8 6 13s-2 10-6 13c-4-3-6-8-6-13s2-10 6-13z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="news-list" id="list-wd"></div>
+</section>
+
+<!-- ============ FINANCE ============ -->
+<section class="region" id="fin" data-region="fin">
+  <div class="region-head">
+    <span class="region-num"><span>04</span></span>
+    <h1 class="region-title" id="regionTitle-fin"></h1>
+    <span class="region-count" id="regionCount-fin"></span>
+    <svg class="region-doodle" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 28l8-9 6 5 12-15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M24 9h8v8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="news-list" id="list-fin"></div>
+</section>
+
+<!-- ============ GENERATIVE AI ============ -->
+<section class="region" id="ai" data-region="ai">
+  <div class="region-head">
+    <span class="region-num"><span>05</span></span>
+    <h1 class="region-title" id="regionTitle-ai"></h1>
+    <span class="region-count" id="regionCount-ai"></span>
+    <svg class="region-doodle" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 6l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+      <path d="M32 28l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </div>
+  <div class="news-list" id="list-ai"></div>
+</section>
+
+<!-- ============ ENTERTAINMENT ============ -->
+<section class="region" id="ent" data-region="ent">
+  <div class="region-head">
+    <span class="region-num"><span>06</span></span>
+    <h1 class="region-title" id="regionTitle-ent"></h1>
+    <span class="region-count" id="regionCount-ent"></span>
+    <svg class="region-doodle" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 6l4 10 11 1-8.5 7 3 11-9.5-6-9.5 6 3-11-8.5-7 11-1z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </div>
+  <div class="news-list" id="list-ent"></div>
+</section>
+
+<!-- ============ SPORTS ============ -->
+<section class="region" id="sp" data-region="sp">
+  <div class="region-head">
+    <span class="region-num"><span>07</span></span>
+    <h1 class="region-title" id="regionTitle-sp"></h1>
+    <span class="region-count" id="regionCount-sp"></span>
+    <svg class="region-doodle" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M20 11l6 4-2 7h-8l-2-7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M20 11V7M26 15l4-2M24 22l3 4M16 22l-3 4M14 15l-4-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="news-list" id="list-sp"></div>
+</section>
+
+<!-- ============ MECHANISM / AUTO-UPDATE EXPLAINER ============ -->
+<section class="mechanism" id="mechanism">
+  <div class="mechanism-card">
+    <h2>關於「每週自動更新」</h2>
+    <p>
+      這個頁面本身是一份靜態網頁，無法自己連線到網路抓新聞或自己排程執行——它只會顯示寫入頁面當下的內容。要做到「真正每週自動更新」，需要一個會定期執行的程式去抓資料、寫回頁面。以下是三種常見做法，從最簡單到最完整：
+    </p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">方法一</div>
+        <h3>每週請我重新生成</h3>
+        <p>每週回來這個對話，請我搜尋當週新聞並更新這份頁面，幾分鐘就能拿到新版本。不需要寫程式，但要手動觸發。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">方法二</div>
+        <h3>排程腳本 + 新聞 API</h3>
+        <p>寫一個 Python／Node 腳本，串接新聞 API（如 NewsAPI、GNews）或 RSS 來源，搭配 cron job 或 GitHub Actions 每週執行一次，把結果寫入此頁面的 JSON 資料再部署。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">方法三</div>
+        <h3>串接 Claude API 自動摘要</h3>
+        <p>排程腳本呼叫 Claude API（搭配 web search 工具）每週自動搜尋三地新聞並生成摘要文字，再寫入網頁的資料來源，全程免人工。</p>
+      </div>
+    </div>
+    <div class="refresh-row">
+      <button class="btn" id="refreshBtn">下次更新時間：每週日</button>
+      <span class="btn-note">此按鈕僅示意排程節點，實際抓取需依上方方法接上資料來源</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span id="footerLabel">資料整理日期</span> <span id="footerDate">2026年06月28日</span> · <span id="footerNote">內容為新聞重點摘要，詳情請參閱原始新聞來源</span>
+</footer>
+
+<script>
+// ===== 多語系統 =====
+const currentLang = 'zh'; // 語言切換功能已移除，固定顯示中文（保留三語資料相容性，未來如需恢復切換可重新啟用）
+
+const CATEGORY_META = {
+  tw:  { num:'01', name:{zh:'台灣',     ja:'台湾',         en:'Taiwan'},        code:{zh:'TAIWAN',         ja:'台湾',         en:'TAIWAN'} },
+  jp:  { num:'02', name:{zh:'日本',     ja:'日本',         en:'Japan'},         code:{zh:'JAPAN',          ja:'日本',         en:'JAPAN'} },
+  wd:  { num:'03', name:{zh:'世界',     ja:'世界',         en:'World'},         code:{zh:'WORLD',          ja:'世界',         en:'WORLD'} },
+  fin: { num:'04', name:{zh:'財經',     ja:'経済',         en:'Finance'},       code:{zh:'FINANCE',        ja:'経済',         en:'FINANCE'} },
+  ai:  { num:'05', name:{zh:'生成式AI', ja:'生成AI',       en:'Generative AI'}, code:{zh:'GENERATIVE AI',  ja:'生成AI',       en:'GENERATIVE AI'} },
+  ent: { num:'06', name:{zh:'影視圈',   ja:'エンタメ',     en:'Entertainment'}, code:{zh:'ENTERTAINMENT',  ja:'エンタメ',     en:'ENTERTAINMENT'} },
+  sp:  { num:'07', name:{zh:'運動',     ja:'スポーツ',     en:'Sports'},        code:{zh:'SPORTS',         ja:'スポーツ',     en:'SPORTS'} },
+};
+
+// 七個分類進場轉場用的全螢幕圖形：台灣／日本用簡化手繪地圖輪廓，
+// 其餘五個（無對應單一國家地圖）沿用各分類既有的塗鴉圖示放大版本，維持七個分類體驗一致。
+const TRANSITION_SHAPES = {
+  tw: {
+    color: 'var(--tw)',
+    svg: `<svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <path d="M52 4C66 10 74 26 76 42C78 58 70 70 74 84C77 95 72 106 64 116C58 124 52 132 46 136C40 130 36 120 38 110C40 100 32 94 30 84C27 71 32 60 28 48C25 38 30 26 38 16C43 9 47 5 52 4Z"
+        fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </svg>`,
+  },
+  jp: {
+    color: 'var(--jp)',
+    svg: `<svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <path d="M28 30c6-4 14-2 18 3 5-3 11 0 13 5 7-2 13 3 13 9 6 1 10 7 8 13 7 3 9 11 4 16 4 6 1 14-6 16 1 7-4 13-11 13-2 6-9 9-15 6-4 5-12 5-16 0-6 3-13 0-15-6-7 1-13-4-13-11-7-1-11-8-8-15-6-4-6-13 0-17-3-6 0-14 7-16 0-6 5-12 11-11 1-6 7-10 13-8 1-5 6-8 11-7z"
+        fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </svg>`,
+  },
+  wd: {
+    color: 'var(--wd)',
+    svg: `<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M7 20h26M20 7c4 3 6 8 6 13s-2 10-6 13c-4-3-6-8-6-13s2-10 6-13z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>`,
+  },
+  fin: {
+    color: 'var(--fin)',
+    svg: `<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <path d="M6 28l8-9 6 5 12-15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M24 9h8v8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+  },
+  ai: {
+    color: 'var(--ai)',
+    svg: `<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <path d="M20 4l4 12 12 4-12 4-4 12-4-12-12-4 12-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+    </svg>`,
+  },
+  ent: {
+    color: 'var(--ent)',
+    svg: `<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <path d="M20 4l4.5 11 12 1-9.3 7.7 3.3 12-10.5-6.6-10.5 6.6 3.3-12L3.5 16l12-1z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+    </svg>`,
+  },
+  sp: {
+    color: 'var(--sp)',
+    svg: `<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <circle cx="20" cy="20" r="14" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M20 11l6.5 4.3-2.2 7.5h-8.6l-2.2-7.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M20 11V6M27 16l4.5-2M24.5 23l3.2 4.3M15.5 23l-3.2 4.3M13 16l-4.5-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>`,
+  },
+};
+
+const UI_STRINGS = {
+  mastheadEyebrowSuffix: { zh:'每週彙整', ja:'毎週まとめ', en:'Weekly Roundup' },
+  mastheadTitle: {
+    zh:'上週<span class="accent">重<svg class="accent-star" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l2 7h7l-5.5 4.5L17.5 21 12 16.5 6.5 21 8.5 13.5 3 9h7z" fill="currentColor"/></svg></span>大新聞',
+  },
+  mastheadSub: {
+    zh:'彙整七大主題上週十大事件，用一頁掃過上週發生的事。',
+    ja:'7つのカテゴリーで先週の重要ニュースを10件ずつまとめました。',
+    en:'Top 10 stories from last week across seven categories, all on one page.',
+  },
+  weekRangePrefix: { zh:'本期：', ja:'今週：', en:'This week: ' },
+  menuToggleLabel: { zh:'選單', ja:'メニュー', en:'Menu' },
+  menuCurrentAll: { zh:'瀏覽全部分類', ja:'すべてのカテゴリーを見る', en:'Browse all categories' },
+  menuCurrentPrefix: { zh:'目前瀏覽：', ja:'表示中：', en:'Viewing: ' },
+  menuCount: { zh:n => `${n}則`, ja:n => `${n}件`, en:n => `${n} stories` },
+  menuAutoLabel: { zh:'自動更新說明', ja:'自動更新について', en:'How auto-update works' },
+  menuAutoCode: { zh:'HOW IT WORKS', ja:'自動更新', en:'HOW IT WORKS' },
+  backHomeLabel: { zh:'返回首頁（顯示全部分類）', ja:'ホームに戻る（すべて表示）', en:'← Back to all categories' },
+  regionSubLabel: { zh:'上週十大新聞', ja:'先週のトップ10', en:'Top 10 last week' },
+  regionCount: { zh:n => `${n} 則`, ja:n => `${n} 件`, en:n => `${n} stories` },
+  flipHintFront: { zh:'點擊看摘要', ja:'タップして要約を見る', en:'Tap to read summary' },
+  flipHintBack: { zh:'點擊翻回標題', ja:'タップして見出しに戻る', en:'Tap to flip back' },
+  noDataThisCategory: { zh:'本週此分類暫無資料。', ja:'このカテゴリーには今週のデータがありません。', en:'No data for this category this week.' },
+  footerLabel: { zh:'資料整理日期', ja:'データ更新日', en:'Data compiled on' },
+  footerNote: { zh:'內容為新聞重點摘要，詳情請參閱原始新聞來源', ja:'内容は要約です。詳細は元のニュースソースをご確認ください', en:'Summaries only — please refer to original sources for full details' },
+};
+
+function t(key, ...args){
+  const entry = UI_STRINGS[key];
+  if (!entry) return '';
+  const val = entry[currentLang] ?? entry.zh;
+  return typeof val === 'function' ? val(...args) : val;
+}
+
+// ALL_WEEKS：依新到舊排序的多週歷史資料陣列，每個元素包含該週的 categories 與顯示用文字
+const ALL_WEEKS = [{"weekStart": "2026-06-22", "weekEnd": "2026-06-28", "weekStartDisplay": "2026/06/22", "weekEndDisplay": "06/28", "generatedAt": "2026-06-28T08:00:00+00:00", "generatedDateDisplay": "2026年06月28日", "editionNum": 25, "categories": {"tw": [{"date": "06.26", "title": {"zh": "米克拉颱風外圍環流挾豪雨，台南高雄屏東宣布停班停課", "ja": "台風ミクラの外側の雨雲が豪雨をもたらし、台南・高雄・屏東が休校休業を発表", "en": "Typhoon Mikla brings torrential rain; Tainan, Kaohsiung and Pingtung suspend work and school"}, "desc": {"zh": "輕颱米克拉沿東部外海北上，外圍環流挾鋒面與西南風帶來劇烈降雨，屏東縣24小時累積雨量逾500毫米達超大豪雨等級，高雄市原僅10行政區停班後深夜緊急擴大為全市停班停課，台南市同步宣布停止上班上課，多處低窪地區傳出嚴重積淹水。", "ja": "台風ミクラが台湾東部沖を北上し、外側の雨雲と前線、南西気流が激しい降雨をもたらした。屏東県では24時間の累積降雨量が500ミリを超える「超大豪雨」級に達し、高雄市は当初10区のみの休業から深夜に全市休校休業へ緊急拡大。台南市も同様に休校休業を発表し、多くの低地で深刻な浸水が発生した。", "en": "Tropical storm Mikla moved north off Taiwan's east coast, its outer rain bands combined with a frontal system and southwesterly winds to bring severe rainfall. Pingtung county recorded over 500mm of rain in 24 hours, reaching extreme rainfall levels. Kaohsiung expanded its suspension from 10 districts to citywide late at night, while Tainan also suspended work and classes. Severe flooding was reported in many low-lying areas."}, "tag": {"zh": "天災", "ja": "自然災害", "en": "Natural Disaster"}}, {"date": "06.26", "title": {"zh": "陸海警船頻擾台灣東部海域，美英法德駐台機構接連發聲關切", "ja": "中国海警船が台湾東部海域で活動を活発化、米英仏独の駐台機関が相次いで懸念表明", "en": "Chinese coast guard vessels repeatedly approach Taiwan's eastern waters; US, UK, France and Germany offices in Taiwan voice concern"}, "desc": {"zh": "中國近期頻繁派遣海警船赴台灣東部海域「執法」，強化灰色地帶襲擾，美國在台協會（AIT）直指此舉嚴重破壞台灣已和平管理逾70年海域的穩定，敦促北京停止對台軍事外交施壓；總統府已邀集11部會推演應對，國軍同步模擬共軍登陸情境。", "ja": "中国は最近、台湾東部海域へ海警船を頻繁に派遣し「法執行」を強化、グレーゾーンでの圧力を強めている。AIT（米国在台協会）は、台湾が70年以上平和的に管理してきた海域の安定を著しく損なう行為だと指摘し、北京に対台湾の軍事・外交圧力の停止を求めた。総統府は11部会を招集して対応策を協議し、国軍も中国軍の上陸シナリオを想定した演習を実施している。", "en": "China has recently been dispatching coast guard vessels to Taiwan's eastern waters with increasing frequency for so-called law enforcement, intensifying gray-zone pressure. The American Institute in Taiwan (AIT) said the move seriously undermines the stability of waters Taiwan has peacefully managed for over 70 years, urging Beijing to halt military and diplomatic pressure on Taiwan. The Presidential Office has convened 11 ministries to plan a response, while the armed forces are simultaneously simulating scenarios involving a Chinese military landing."}, "tag": {"zh": "兩岸", "ja": "両岸関係", "en": "Cross-Strait"}}, {"date": "06.26", "title": {"zh": "立法院長韓國瑜結束訪美行程返台，會晤美方國防官員與聯邦眾院議長", "ja": "立法院長の韓国瑜氏が訪米日程を終えて帰台、米国防当局者や連邦下院議長と会談", "en": "Legislative Speaker Han Kuo-yu returns from US trip after meeting defense officials and the House Speaker"}, "desc": {"zh": "立法院長韓國瑜率跨黨派立委訪美行程告一段落，返台前曾與美方國防官員及聯邦眾議院議長會面，隨團立委表示已向美方表達對台軍售應依合約時程交貨的期待，盼提升台灣防衛戰力韌性。", "ja": "立法院長（国会議長）の韓国瑜氏が超党派の議員団を率いて行った訪米日程が一区切りとなった。帰台前に米国防当局者および連邦下院議長と会談し、同行した議員は、対台軍事売却が契約スケジュール通りに引き渡されることへの期待を米側に伝えたと述べ、台湾の防衛力強化を望むとした。", "en": "Legislative Speaker Han Kuo-yu concluded a cross-party legislative delegation trip to the United States, having met with US defense officials and the Speaker of the House before returning to Taiwan. Accompanying legislators said they conveyed to the US side the expectation that arms sales to Taiwan be delivered according to contracted schedules, hoping to strengthen the resilience of Taiwan's defense capabilities."}, "tag": {"zh": "外交", "ja": "外交", "en": "Diplomacy"}}, {"date": "06.25", "title": "台中葳格國際學校掏空案，金錢豹創辦人夫妻遭收押禁見", "desc": "台中地檢署偵辦葳格國際學校校產掏空案，校方執行董事吳菀庭與其夫、金錢豹創辦人袁昶平涉嫌公益侵占、業務侵占等罪嫌重大，經第二度搜索約談後當庭逮捕，台中地院裁定羈押禁見。", "tag": "社會"}, {"date": "06.25", "title": "中華徵信所示警台灣經濟「K型化」，逾770家大型企業去年虧損創10年新高", "desc": "中華徵信所公布台灣大型企業排名TOP5000報告，指出在整體營收獲利創紀錄的表面榮景下，民國114年虧損企業高達772家創10年新高，學者建議獲利強勁的科技業應提撥盈餘成立基金，協助傳產與消費性產業AI轉型。", "tag": "產業"}, {"date": "06.25", "title": "環太平洋軍演24日揭幕，國防部長顧立雄提醒關注美日聯合演習動向", "desc": "印太地區規模最大的環太平洋軍演（RIMPAC）24日揭開序幕並將持續至7月底，國防部長顧立雄在立法院答詢時表示國防部並未參演，但提醒同期美日進行的「堅毅之龍」與「勇敢之盾」兩項演習均涉及島嶼聯合防禦，值得我方密切關注。", "tag": "國防"}, {"date": "06.24", "title": "立陶宛政權改組擬對中採務實路線，外界關注台灣投資承諾進度", "desc": "立陶宛執政聯盟改組，總理魯吉尼涅辭職，同黨主席辛克維丘斯接任，新政府承諾將與北京建立更穩定關係；辛克維丘斯今年2月曾表示對中政策將採務實路線，並提及台灣承諾的數十億投資與晶片生產項目尚未實現。", "tag": "國際"}, {"date": "06.23", "title": "美國務院、農業部、商務部聯合致函各州，鼓勵擴大與台灣交流", "desc": "美國在台協會（AIT）表示，美國國務院、農業部及商務部近日聯合致函各州州長與企業領袖，鼓勵進一步擴大與台灣在貿易、投資、教育、觀光及災害防備方面的交流，並重申合作完全符合台灣關係法下的美國政策。", "tag": "外交"}, {"date": "06.22", "title": "賴清德總統0至18歲每月5000元成長津貼引朝野攻防", "desc": "總統賴清德拋出0至18歲每月發放5000元「成長津貼」構想，計畫以行政命令方式於明年啟動，在野陣營以防「割稻尾」為由加快「台灣未來帳戶」立法腳步並研議加碼，綠營人士示警若在野方案漫天喊價，行政院恐被迫祭出不副署手段。", "tag": "政治"}, {"date": "06.22", "title": "民進黨前黨工共諜案二審大逆轉，4人全改判輕判", "desc": "民進黨4名前黨工涉入的共諜案二審出現大逆轉，包括前外交部長吳釗燮的前助理何仁傑均改判無罪或輕判，高檢署將提上訴，此案後續發展與在野陣營的政治攻防持續受到關注。", "tag": "司法"}], "jp": [{"date": "06.25", "title": "青森縣外海發生震度6強強震，M7.2無海嘯風險", "desc": "6月25日上午7時半左右，以岩手縣外海為震源的地震發生，青森縣階上町觀測到最大震度6強，地震規模暫定為M7.2，深度44公里，氣象廳表示無海嘯擔憂；青森縣內5人送醫，八戶市等地傳出土砂崩塌與商品掉落等災情，首相高市早苗在官邸設置對策室全力掌握災情。", "tag": "災害"}, {"date": "06.25", "title": "NATO秘書長盧特訪美會晤川普，歐洲分擔防衛費議題升溫", "desc": "NATO秘書長馬克·盧特於6月23至25日訪問華府並與川普總統會談，川普要求同盟國展現「忠誠」，並批評歐洲在伊朗戰事中支援不足；美方對歐洲在基地使用與荷姆茲海峽應對上的協調力度感到不滿，美軍歐洲駐留部署議題討論升溫。", "tag": "外交"}, {"date": "06.25", "title": "Anthropic向美國國會指控阿里巴巴大規模非法存取Claude", "desc": "Anthropic向美國國會提交書信，指控阿里巴巴一方對Claude發動大規模未授權存取行動，4月22日至6月5日間約2.5萬個違規帳號累計逾2880萬次互動，阿里巴巴未即時回應；此事件凸顯美中AI競爭下，模型輸出遭仿冒所引發的智慧財產與出口管制風險。", "tag": "AI安全"}, {"date": "06.24", "title": "加拿大防衛大臣與小泉防衛相會談，表態參與日英義GCAP戰機計畫意願", "desc": "加拿大國防部長馬金提於東京與日本防衛大臣小泉進次郎舉行會談，表示對參與日本、英國、義大利共同開發的次世代戰機GCAP計畫具有意願；GCAP計畫於2022年啟動，目標2035年完成部署，屬第6代戰機開發案。", "tag": "國防"}, {"date": "06.22", "title": "日經指數盤中首度突破7萬點大關，終場收漲創新高", "desc": "受惠美伊停火協議降低中東風險溢價，日經225指數盤中首度突破7萬點，終場收漲0.1%來到69,404.50點創歷史新高，東證指數則小幅收跌；日本20年期國債殖利率同步走高，市場聚焦日銀後續利率決策路徑。", "tag": "財經"}, {"date": "06.20", "title": "日銀總裁植田就匯率與油價影響表態，密切關注物價傳導風險", "desc": "日本央行總裁植田和男表示，匯率雖非政策目標但屬重要參考因素，且可能傳導至物價需密切監測，並點名中東局勢對金融市場與物價的潛在衝擊，將觀察油價回落如何緩解通膨風險，ETF購買步調暫不調整但未來可能因應市況改變。", "tag": "央行"}, {"date": "06.19", "title": "G7峰會首邀AI三巨頭同台，Anthropic、OpenAI、Google DeepMind執行長與七國領袖對話", "desc": "七大工業國集團峰會在法國埃維昂萊班舉行，近50年來首次邀請AI公司執行長參與領導人層級對話，OpenAI的Sam Altman、Anthropic的Dario Amodei與Google DeepMind的Demis Hassabis同台出席，象徵AI議題正式進入七國領袖外交議程核心。", "tag": "AI治理"}, {"date": "06.17", "title": "日本通過修法改組「航空宇宙自衛隊」，強化太空防衛能力", "desc": "日本國會通過相關修正法案，將自衛隊體制改組成立「航空宇宙自衛隊」，反映日本因應太空與航空領域安全威脅升高的防衛戰略調整，未來將強化衛星監控與太空相關軍事能力建置。", "tag": "國防"}, {"date": "06.17", "title": "知床觀光船沉沒案宣判，運航公司社長判處有期徒刑5年", "desc": "北海道知床沖觀光船沉沒事故的司法程序作出一審判決，札幌地方法院認定運航公司可預見海象風險卻未採取防範措施，依業務過失致死罪判處公司社長有期徒刑5年，遇難者家屬持續關注後續上訴動向。", "tag": "司法"}, {"date": "06.15", "title": "日本世足賽戰荷蘭踢出激戰，球迷賽後清理觀眾席傳統延續", "desc": "日本國家隊在世界盃小組賽迎戰荷蘭，雙方踢出膠著賽事，球迷在賽後再次自發清理觀眾席垃圾，延續自1998年世界盃以來日本球迷的經典傳統，賽事結果與球迷風範同步登上國際媒體版面。", "tag": "體育"}], "wd": [{"date": "06.25", "title": "委內瑞拉首都加拉加斯遭雙重地震重創，逾32人死亡700多人受傷", "desc": "委內瑞拉北部6月24日傍晚接連發生M7.2與M7.5地震，首都加拉加斯周邊建築物倒塌，代理總統羅德里格茲宣布進入緊急狀態並將拉瓜伊拉列為災區，主要機場受損影響人道物資運輸，聯合國兒童基金會已展開救援協調。", "tag": "天災"}, {"date": "06.24", "title": "美伊瑞士談判取得「令人鼓舞進展」，雙方同意60天內達成最終協議路線圖", "desc": "巴基斯坦與卡達擔任調停方，美伊雙方在瑞士進行18小時談判後表示取得鼓舞性進展，同意在60天內達成最終協議的路線圖；此前美伊已簽署備忘錄結束自2月起的戰事，但川普仍威脅若伊朗代理人在黎巴嫩持續滋事將再度開火。", "tag": "中東"}, {"date": "06.22", "title": "英國首相施凱爾在工黨內部壓力下宣布辭職", "desc": "英國首相施凱爾（Keir Starmer）在工黨內部持續累積的政治壓力下宣布辭職，這起政壇變動為英國政局投下震撼彈，工黨後續接班與政策走向成為國際媒體關注焦點。", "tag": "歐洲"}, {"date": "06.22", "title": "卡達主要能源基地拉斯拉凡爆炸起火，造成13死66傷", "desc": "卡達能源公司證實，國內主要能源基地拉斯拉凡一處設施發生重大意外爆炸並引發大火，事故造成13人死亡、66人受傷，事故發生於工作人員嘗試恢復運作期間，卡達官方表示其液化天然氣出口未受影響。", "tag": "能源"}, {"date": "06.21", "title": "以色列黎巴嫩衝突未歇，雙方持續交火考驗停火協議韌性", "desc": "黎巴嫩南部衝突持續未止，以色列與真主黨互相指控對方破壞和平努力，儘管美伊達成的階段性協議帶動地區降溫氣氛，但黎南情勢仍呈現脆弱且隨時可能升溫的態勢，國際社會持續關注後續發展。", "tag": "中東"}, {"date": "06.20", "title": "歐洲多國連日40度熱浪襲擊，巴黎民眾跳河消暑", "desc": "歐洲多國本週遭遇攝氏40度高溫熱浪侵襲，法國巴黎年輕人湧入塞納河運河與市區噴泉消暑降溫，當局發布高溫警示並採取相應安全措施，熱浪同時對能源系統與公共健康構成壓力。", "tag": "歐洲"}, {"date": "06.19", "title": "2026世界盃足球賽小組賽持續開打，多國球迷展現熱情風采", "desc": "美加墨三國聯合主辦的世界盃進入小組賽階段，挪威球迷以維京頭盔造型聚集紐約時代廣場為球隊應援，烏茲別克作為首支晉級世界盃的中亞球隊同樣吸引高度關注，多場賽事持續刷新歷史紀錄與話題熱度。", "tag": "體育"}, {"date": "06.18", "title": "美國海關緝獲近3公噸古柯鹼，市值近5億歐元創當地紀錄", "desc": "執法機關查獲一批重量近3公噸的古柯鹼，市值估計接近5億歐元，為當地歷來規模最大的單次緝毒行動，案件偵辦持續中，反映跨國毒品走私網絡規模與查緝難度同步升高。", "tag": "治安"}, {"date": "06.16", "title": "美伊協議帶動全球股債雙漲，油價單日重挫5%", "desc": "美伊達成框架性和平協議並計畫重新開放荷姆茲海峽後，全球股市與債市普遍走揚，布蘭特原油單日下跌5%至每桶83美元；歐洲STOXX 600與富時泛歐指數同創歷史新高，亞洲主要股市同步走高，市場降息預期同步降溫。", "tag": "全球市場"}, {"date": "06.13", "title": "南韓前第一夫人金建希出庭應訊，案件審理持續進行", "desc": "南韓前第一夫人金建希（已遭彈劾前總統尹錫悅之妻）出庭參與特別檢察官申請的拘捕令審查庭，案件後續審理結果牽動南韓政壇對前朝官員究責程度的關注。", "tag": "東亞"}], "fin": [{"date": "06.26", "title": "美國第一季GDP終值優於預期，但消費支出幾近停滯", "desc": "美國商務部公布第一季GDP終值報告，顯示經濟成長速度優於先前預估，但作為主要引擎的消費支出幾乎停滯，反映企業投資與AI相關支出正成為支撐美國經濟成長的主要動能，市場關注後續消費動能能否回溫。", "tag": "美國經濟"}, {"date": "06.25", "title": "蘋果宣布全線硬體產品調漲售價，歸咎AI晶片需求推升記憶體成本", "desc": "蘋果宣布調漲Mac、iPad、HomePod、Apple TV及Vision Pro等多項硬體產品售價，理由是AI資料中心建設熱潮推升記憶體與儲存晶片價格，公司已無法持續吸收成本壓力，為近年少見由零組件短缺直接引發的大規模產品漲價行動。", "tag": "科技股"}, {"date": "06.24", "title": "黃金白銀比特幣同步重挫，金價跌破4000美元創7個月新低", "desc": "黃金、白銀與比特幣同步重挫，金價7個月來首度跌破每盎司4000美元，白銀失守60美元關卡，比特幣跌破6萬美元；市場分析指聯準會主席華許釋出偏鷹派訊號，加上美元升值與升息預期升溫，加速終結過去兩年盛行的貨幣貶值交易。", "tag": "貴金屬"}, {"date": "06.24", "title": "美股科技股重挫，費城半導體指數單日重摔近9%", "desc": "美股科技股與半導體類股遭遇大幅拋售，那斯達克指數重挫逾2%，費城半導體指數狂瀉近9%，記憶體大廠美光單日重挫13%，南韓三星與SK海力士同步走低，拖累KOSPI指數暴跌10%，市場焦點轉向AI概念股估值是否過熱的疑慮。", "tag": "美股"}, {"date": "06.24", "title": "高通上調2029年非手機業務營收目標至400億美元，股價飆漲15%", "desc": "高通在股東大會上宣布將2029會計年度非手機業務營收目標大幅上調至400億美元，幾乎是先前預測的兩倍，並設定資料中心營收150億美元目標，消息公布後股價盤後一度飆漲15%。", "tag": "半導體"}, {"date": "06.24", "title": "黃仁勳：輝達優先考量國家安全，不會技術支援違規晶片走私", "desc": "輝達執行長黃仁勳向股東表示，若商業機會與美國國家安全發生衝突，公司將優先考量國家利益，任何企圖將輝達晶片走私至受出口管制國家（如中國）的行為，將因缺乏技術支援與維修服務而無法正常運作。", "tag": "半導體"}, {"date": "06.22", "title": "台股受惠美伊和平協議與AI熱潮，加權指數連日創高", "desc": "在美伊和平協議降低中東風險溢價，加上AI與半導體產業熱潮帶動下，台股加權指數本週維持強勢，金融股成為主要拉抬力量之一，市場資金同步流向半導體、軟體及記憶體等權值股，醫療類股則因資金撤出表現相對弱勢。", "tag": "台股"}, {"date": "06.20", "title": "SpaceX上市後股價劇烈波動，放空比例達流通股5-7%", "desc": "SpaceX完成創紀錄IPO後股價劇烈波動，金融數據分析機構S3 Partners估計約5%至7%的流通股遭放空，相當於約4000萬股，反映市場對這家由馬斯克領導的太空與AI企業估值看法分歧，研究機構晨星先前曾示警其估值可能過高。", "tag": "科技股IPO"}, {"date": "06.16", "title": "美伊和談帶動油價崩跌，能源股全面承壓資金轉向權值股", "desc": "美伊和平協議消息傳出後，國際油價因風險溢價回落而重挫，能源股全面崩潰，市場資金隨之轉向半導體、軟體與記憶體等權值股，醫療股則因資金撤退表現轉弱，反映本週資金輪動明顯。", "tag": "全球市場"}, {"date": "06.09", "title": "OpenAI、Anthropic相繼秘密遞交IPO申請，估值合計逼近萬億美元", "desc": "OpenAI確認已向美國證券交易委員會秘密遞交S-1上市申請文件，最新一輪估值達8520億美元；一週前完成同樣動作的Anthropic估值則攀升至9650億美元，首次在估值上反超OpenAI，加上SpaceX同期掛牌，三家公司合計衝擊近4萬億美元新增市值。", "tag": "AI產業IPO"}], "ai": [{"date": "06.26", "title": "Anthropic指控阿里巴巴大規模非法存取Claude，致函美國國會", "desc": "Anthropic向美國國會提交書信，指控阿里巴巴一方對Claude模型發動大規模未授權存取行動，4月22日至6月5日間約2.5萬個違規帳號累計逾2880萬次互動，阿里巴巴未即時回應，事件凸顯美中AI競爭下模型輸出遭仿冒所引發的智財與出口管制爭議。", "tag": "AI安全"}, {"date": "06.26", "title": "OpenAI與Anthropic面臨AI支出降溫，企業客戶轉向DeepSeek等低價方案", "desc": "隨著企業開始控管AI支出，部分大型企業客戶開始限制失控的Token花費，AI創業公司Lindy將100%流量自Claude轉移至中國DeepSeek模型；分析師指出OpenAI與Anthropic目前的成長速度可能是史上最快的階段，這也是雙方均搶在IPO前申請上市的原因之一。", "tag": "產業動態"}, {"date": "06.25", "title": "Google Gemini負責人Noam Shazeer宣布跳槽OpenAI，AI人才爭奪戰加劇", "desc": "Google DeepMind明星研究員、Gemini聯合負責人Noam Shazeer於社群媒體宣布加入OpenAI，緊接諾貝爾獎得主John Jumper跳槽Anthropic之後，一週內Google連失多位核心研究員，反映頂尖AI人才流動與三大實驗室人才爭奪戰持續升溫。", "tag": "人才流動"}, {"date": "06.25", "title": "蘋果AI晶片戰略大調整，傳跳過M6 Pro/Max直奔AI導向M7系列", "desc": "據報導蘋果正準備對Mac晶片發展策略進行歷來最大調整之一，計劃推出基礎版M6晶片後，罕見跳過M6 Pro與M6 Max等高階版本，改由全新AI導向的M7系列接棒，藉此加快AI功能與高效能運算技術的發展進程。", "tag": "AI晶片"}, {"date": "06.23", "title": "OpenAI發布GPT-5.5-Cyber網路安全專用模型，CyberGym測試刷新紀錄", "desc": "OpenAI宣布擴展「Daybreak」網路安全計畫，有限開放GPT-5.5-Cyber完整版，該模型在CyberGym基準測試取得85.6%刷新紀錄的成績，專注於漏洞發現、攻擊路徑追蹤與修補生成，並透過可信存取計畫向Akamai、Cisco等合作夥伴開放。", "tag": "模型發布"}, {"date": "06.23", "title": "SpaceX與Reflection AI簽63億美元算力租賃協議", "desc": "SpaceX與開源AI創業公司Reflection AI簽署算力租賃協議，雙方合作金額達63億美元，自2026年7月1日起生效，反映AI運算基礎設施需求持續推升相關大型租賃與投資交易規模。", "tag": "AI基礎設施"}, {"date": "06.20", "title": "OpenAI洽談俄亥俄州10GW資料中心租約，建置成本上看5000億美元", "desc": "OpenAI正與軟銀旗下SB Energy談判租賃一座規模達10GW的資料中心園區，輝達同步參與投資擔保，整座園區建成成本至少5000億美元，租期20年，預計2028年投入運營，凸顯AI龍頭企業在基礎設施布局上的競賽規模持續擴大。", "tag": "AI基礎設施"}, {"date": "06.19", "title": "G7峰會首邀AI三巨頭同台，AI治理正式進入七國領袖外交議程", "desc": "七大工業國集團峰會近50年來首次邀請AI公司執行長參與領導人層級對話，OpenAI的Sam Altman、Anthropic的Dario Amodei與Google DeepMind的Demis Hassabis同台出席，象徵AI監管與安全議題已從產業競爭層次升級為全球地緣政治核心議題。", "tag": "AI治理"}, {"date": "06.16", "title": "Anthropic新模型Claude Fable 5、Mythos 5因美國出口管制指令暫停存取", "desc": "Anthropic旗下新一代模型Claude Fable 5因美國官方出口管制指令全面關停存取，公司同步開啟退款通道；Anthropic在合規執行的同時發布聲明反駁政府理由，指出政府所稱的安全疑慮僅涉及範圍極窄、各家模型普遍存在的能力，目前Mythos與Fable系列存取暫停以回應相關指令。", "tag": "AI監管"}, {"date": "06.10", "title": "Google Gemini 3.5 Pro預計近期正式發布，主打200萬token超長上下文", "desc": "繼5月Google I/O大會亮相後，Gemini 3.5 Pro預計近期正式對外發布，主打200萬token超長上下文與Deep Think深度推理模式，目前僅供內部與少量企業客戶測試使用，被視為Google在通用模型賽道追趕對手的重要產品。", "tag": "模型發布"}], "ent": [{"date": "06.27", "title": "第37屆金曲獎登場，蔡依林《Pleasure》橫掃3項大獎成最大贏家", "desc": "第37屆金曲獎頒獎典禮27日晚間在台北小巨蛋舉行，167件作品角逐27項大獎，蔡依林憑專輯《Pleasure》拿下年度專輯獎、最佳華語女歌手獎及最佳演唱錄音專輯獎3項大獎成為最大贏家；A-Lin首度擔任主持人表現獲好評。", "tag": "頒獎典禮"}, {"date": "06.27", "title": "張震嶽奪金曲37最佳華語男歌手，蕭煌奇第8度叩關終再封台語歌王", "desc": "張震嶽以《跟著感覺走》奪下最佳華語男歌手獎，並抱回最佳華語專輯獎與最佳作曲人獎；蕭煌奇憑《做一個惜情軟心的人》第8度叩關「最佳台語男歌手」終於成功，生涯第5度封王，領獎時開心跳起並幽默自稱「五金行開張」。", "tag": "頒獎典禮"}, {"date": "06.27", "title": "田馥甄金曲舞台落淚致敬亡師袁惟仁，恩師女兒現場淚崩", "desc": "金曲歌后田馥甄睽違6年再登金曲獎舞台，演唱多首經典曲目深情致敬今年2月病逝的啟蒙恩師袁惟仁，演唱中情緒激動落淚；袁惟仁前妻陸元琪與女兒到場觀禮，女兒看見熟悉旋律重現舞台當場淚崩。", "tag": "演藝圈"}, {"date": "06.27", "title": "GENBLUE幻藍小熊奪最佳演唱組合獎，成首個獲金曲獎肯定的台灣偶像團體", "desc": "台灣男團GENBLUE幻藍小熊在第37屆金曲獎奪下最佳演唱組合獎，成為首個獲得金曲獎肯定的台灣偶像團體，引發網路正反兩面討論，評審團主席黃韻玲說明評選考量，並透露另一組合頑童以4票之差與獎項擦肩而過。", "tag": "頒獎典禮"}, {"date": "06.28", "title": "《浪姐7》總決賽成團夜落幕，曾沛慈奪年度總冠軍12人成團", "desc": "選秀節目《乘風2026》（浪姐7）28日進行總決賽直播，從23位選手中選出12人成團，曾沛慈以246分奪下年度總冠軍，張月獲選年度隊長；團體秀分數爭議與部分人氣選手未能成團的結果，賽後在社群平台引發討論。", "tag": "綜藝"}, {"date": "06.27", "title": "張孝全新作《欠妳的那場婚禮》開拍內幕曝光，遭嚴藝文要求重拍13次", "desc": "金鐘獎最佳導演嚴藝文執導新作《欠妳的那場婚禮》由張孝全與蘇慧倫主演，張孝全受訪透露其中一幕戲遭嚴藝文要求重拍13次，一度扛不住找經紀人抱怨，該劇講述退役樂團主唱面對婚姻與創作雙重低潮的中年故事。", "tag": "影視製作"}, {"date": "06.27", "title": "楊紫白玉蘭獎封后，宋丹丹昔日「不夠漂亮別當演員」評語被網友翻出", "desc": "中國電視劇白玉蘭獎頒獎典禮上，演員楊紫獲頒最佳女主角，網友隨後翻出資深演員宋丹丹過去曾勸她「不夠漂亮別當演員」的舊評語，引發兩岸網友對該番言論的熱烈討論；同屆董勇與遲蓬分別拿下男女配角獎，《太平年》獲最佳電視劇。", "tag": "中國影視"}, {"date": "06.26", "title": "梅西世足賽前夕巨型雕像揭幕掀熱議，背面視角設計引發網路話題", "desc": "阿根廷球王梅西的26公尺巨型雕像在世足賽期間揭幕掀起討論熱潮，雕像背面視角與金盃擺放位置成為網路熱議焦點，多國媒體與球迷透過社群平台分享各角度拍攝畫面，反映本屆世界盃周邊話題熱度持續延燒。", "tag": "話題人物"}, {"date": "06.27", "title": "泰勒絲傳7月3日紐約大婚，麥迪遜廣場周邊傳出封路申請", "desc": "流行天后泰勒絲傳出將於7月3日在紐約舉行婚禮，當地媒體報導紐約市已收到麥迪遜廣場周邊道路的封路使用申請，引發外界對婚禮規模與賓客名單的高度關注與猜測，相關細節尚待官方證實。", "tag": "明星動態"}, {"date": "06.26", "title": "奧斯卡邀大陸導演管虎任評審，本人坦言「最大享受是能提前看片」", "desc": "中國大陸導演管虎獲邀擔任奧斯卡評審團成員，受訪時表示能夠提前看到入圍影片是評審工作最大的享受，此項任命也讓他成為近年少數獲此資格的華語影人，相關評審名單與後續影響持續受到兩岸影視圈關注。", "tag": "國際影壇"}], "sp": [{"date": "06.28", "title": "世足賽小組賽收官，阿根廷梅西帽子戲法後罰球失常創史上最多罰丟紀錄", "desc": "38歲阿根廷球王梅西在世界盃小組賽第二輪面對奧地利一戰，開賽第9分鐘獲罰球機會卻意外罰丟，成為史上罰丟罰球最多的球員；梅西首戰曾上演帽子戲法率隊3：0擊敗阿爾及利亚，追平德國傳奇克洛澤16顆進球並列歷史進球王。", "tag": "世界盃"}, {"date": "06.27", "title": "法國4比1擊退挪威，姆巴佩哈蘭德對決未演先轟動但法國3連勝晉級", "desc": "世界盃H組焦點戰法國對挪威，賽前哈蘭德確定坐板凳後夢幻對決未能上演，法國前鋒登貝萊32分鐘內獨進3球完成帽子戲法，終場4：1擊退挪威拿下小組3連勝，以分組第一之姿晉級淘汰賽。", "tag": "世界盃"}, {"date": "06.27", "title": "葡萄牙C羅破除質疑梅開二度，5比0大勝烏茲別克一吐怨氣", "desc": "葡萄牙隊長C羅在世界盃小組賽面對烏茲別克梅開二度，協助球隊以5：0大勝，本屆是C羅確認的最後一屆世界盃，賽後表現一吐先前外界對其體能與狀態的質疑聲浪，葡萄牙小組賽戰績持續走高。", "tag": "世界盃"}, {"date": "06.26", "title": "日本世足賽4比0橫掃突尼西亞創隊史單場最多進球，巴西媒體出現「敬畏日本」聲音", "desc": "日本在世界盃小組賽第二戰以4比0橫掃突尼西亞，創下隊史在世界盃單場最多進球紀錄；依目前晉級形勢，日本有可能在32強淘汰賽提前遭遇五屆冠軍巴西，這也讓巴西當地媒體開始出現「敬畏日本」的討論聲音。", "tag": "世界盃"}, {"date": "06.26", "title": "洋基隊簽下18歲台灣投手賴謙凡，隊史第3位台將、相隔16年再簽台灣球員", "desc": "紐約洋基隊正式簽下來自台東、畢業於桃園大溪高中的18歲右投賴謙凡，成為繼2000年王建民、2009年郭阜林後隊史第3位台灣球員；球團於台北舉行加盟記者會，國際球探部門總監賈沙稱讚其曲球已達大聯盟菁英等級，賴謙凡近期將赴洋基多明尼加夏季聯盟學院展開職業生涯。", "tag": "MLB"}, {"date": "06.27", "title": "紅襪將鄭宗哲拉上大聯盟，生涯首戰即敲首安、首打點、首保送", "desc": "波士頓紅襪27日對戰洋基前夕，緊急將旅美好手鄭宗哲拉上大聯盟，他在生涯首戰3個打數敲出1支長打，同時完成生涯首安、首打點、首保送的「三響砲」，賽後透露首安球將致贈父母留念。", "tag": "MLB"}, {"date": "06.24", "title": "NBA選秀會落幕，巫師選中迪班薩當狀元，爵士灰熊接續摘下榜眼探花", "desc": "2026年NBA選秀大會在紐約布魯克林巴克萊中心登場，巫師隊如預期選下楊百翰大學前鋒迪班薩（AJ Dybantsa）成為狀元，爵士隊挑中堪薩斯大學後衛彼特森（Darryn Peterson）為榜眼，杜克大學大前鋒布瑟（Cameron Boozer）成為探花加入灰熊隊，「選秀四皇」順位皆符合外界預期。", "tag": "NBA"}, {"date": "06.22", "title": "NBA重磅交易：公鹿送走字母哥安戴托昆波至熱火，13年生涯畫下句點", "desc": "密爾瓦基公鹿正式將當家球星字母哥安戴托昆波與波提斯一同交易至邁阿密熱火，換回赫洛、韋爾、哈克斯、亞庫喬尼斯及多枚選秀權；安戴托昆波自2013年被公鹿選中後效力13個賽季，累積2座年度MVP並於2021年帶隊奪冠，這筆交易為其公鹿時代畫下句點。", "tag": "NBA"}, {"date": "06.25", "title": "知床觀光船沉沒案宣判運航公司社長5年徒刑，案件延燒近4年終獲一審結果", "desc": "北海道知床沖觀光船沉沒事故司法程序作出一審判決，札幌地方法院認定運航公司可預見海象風險卻未防範，依業務過失致死罪判處公司社長有期徒刑5年，事故發生近4年後終於獲得一審結果，遇難者家屬持續關注後續上訴動向。", "tag": "國際體育意外"}, {"date": "06.22", "title": "中職上半季封王戰落幕，味全龍逆轉台鋼雄鷹奪上半季冠軍", "desc": "中華職棒上半季冠軍爭奪戰正式底定，味全龍隊在9局下半由代打吉力吉撈・鞏冠、郭天信、李凱威接連發威，上演逆轉秀以7：5擊敗台鋼雄鷹，拿下2026年中華職棒上半季冠軍，球團隨後推出多項封王慶祝優惠活動。", "tag": "中職"}]}}];
+const CATEGORY_KEYS = ['tw','jp','wd','fin','ai','ent','sp'];
+
+let currentWeekIndex = 0; // 0 = 最新一週
+
+function pickLang(field){
+  // field 可能是三語物件 {zh,ja,en} 或純字串（向後相容舊資料）
+  if (field == null) return '';
+  if (typeof field === 'string') return field;
+  return field[currentLang] ?? field.zh ?? '';
+}
+
+function renderList(regionKey, containerId, items){
+  const container = document.getElementById(containerId);
+  if (!items || items.length === 0){
+    container.innerHTML = `<p style="font-family:var(--mono);font-size:13px;color:var(--paper-dim);">${t('noDataThisCategory')}</p>`;
+    return;
+  }
+  container.innerHTML = items.map((item, i) => `
+    <article class="news-item ${[0,3,5].includes(i % 6) ? 'tall' : ''}" data-order="${i}">
+      <div class="news-item-inner">
+        <div class="news-card-face news-card-front">
+          <div>
+            <span class="news-rank"><span>${i+1}</span></span>
+            <span class="news-date">${item.date}</span>
+            <h3 class="news-title">${pickLang(item.title)}</h3>
+          </div>
+          <div>
+            <span class="news-tag">${pickLang(item.tag)}</span>
+            <div class="flip-hint">${t('flipHintFront')}</div>
+          </div>
+        </div>
+        <div class="news-card-face news-card-back">
+          <div>
+            <span class="news-date">${item.date}</span>
+            <p class="news-desc">${pickLang(item.desc)}</p>
+          </div>
+          <div class="flip-hint">${t('flipHintBack')}</div>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  // 點擊卡片切換翻轉狀態
+  container.querySelectorAll('.news-item').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+  });
+}
+
+// ===== 卡片進場動畫：捲動進入視窗時依序浮現（每次重新渲染週次後都要重新掛上 observer） =====
+let cardObserver = null;
+function setupCardObserver(){
+  if (cardObserver) cardObserver.disconnect();
+  cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        const order = Number(entry.target.dataset.order || 0);
+        setTimeout(() => entry.target.classList.add('in-view'), order * 60);
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.news-item').forEach(card => cardObserver.observe(card));
+}
+
+// ===== 渲染所有「只隨語言變化、不隨週次變化」的靜態 UI 文字 =====
+function renderStaticUI(){
+  document.documentElement.lang = currentLang === 'zh' ? 'zh-Hant' : currentLang;
+
+  document.getElementById('mastheadEyebrow').innerHTML =
+    CATEGORY_KEYS.map(k => CATEGORY_META[k].name[currentLang] ?? CATEGORY_META[k].name.zh).join(' / ') +
+    ` <span class="dot">·</span> ${t('mastheadEyebrowSuffix')}`;
+  document.getElementById('mastheadTitle').innerHTML = t('mastheadTitle');
+  document.getElementById('mastheadSub').textContent = t('mastheadSub');
+
+  document.getElementById('menuToggleLabel').textContent = t('menuToggleLabel');
+  document.getElementById('backHomeLabel').textContent = t('backHomeLabel');
+
+  // 選單面板：依目前語言重新產生七個分類項目 + 自動更新說明
+  const week = ALL_WEEKS[currentWeekIndex];
+  const menuPanelInner = document.getElementById('menuPanelInner');
+  menuPanelInner.innerHTML = CATEGORY_KEYS.map(key => {
+    const meta = CATEGORY_META[key];
+    const count = week ? (week.categories[key] || []).length : 0;
+    return `
+      <a href="#${key}" class="menu-item" data-region="${key}">
+        <span class="menu-item-num">${meta.num}</span>
+        <span class="menu-item-label">${meta.name[currentLang] ?? meta.name.zh}<small>${meta.code[currentLang] ?? meta.code.zh}</small></span>
+        <span class="menu-item-count">${t('menuCount', count)}</span>
+      </a>`;
+  }).join('') + `
+      <a href="#mechanism" class="menu-item menu-item-auto">
+        <span class="menu-item-num">⟳</span>
+        <span class="menu-item-label">${t('menuAutoLabel')}<small>${t('menuAutoCode')}</small></span>
+      </a>`;
+
+  // 注意：選單項目的點擊事件透過 menuPanel 上的事件委派處理（見下方），
+  // 不需要在每次重新產生 HTML 後手動重新綁定。
+
+  // 七個分類的 region-head 標題
+  CATEGORY_KEYS.forEach(key => {
+    const meta = CATEGORY_META[key];
+    const titleEl = document.getElementById(`regionTitle-${key}`);
+    if (titleEl){
+      titleEl.innerHTML = `${meta.name[currentLang] ?? meta.name.zh}<small>${meta.code[currentLang] ?? meta.code.zh} · ${t('regionSubLabel')}</small>`;
+    }
+  });
+
+  document.getElementById('footerLabel').textContent = t('footerLabel');
+  document.getElementById('footerNote').textContent = t('footerNote');
+
+  // menuCurrent：依目前是否在單分類模式顯示對應文字
+  if (document.body.classList.contains('single-mode')){
+    const activeRegion = document.querySelector('.region.region-active');
+    if (activeRegion){
+      const meta = CATEGORY_META[activeRegion.dataset.region];
+      menuCurrent.textContent = t('menuCurrentPrefix') + (meta.name[currentLang] ?? meta.name.zh);
+    }
+  } else {
+    menuCurrent.textContent = t('menuCurrentAll');
+  }
+}
+
+// ===== 渲染指定週次的所有內容（首次載入與切換週次都呼叫這個函式） =====
+function renderWeek(index){
+  const week = ALL_WEEKS[index];
+  if (!week) return;
+  currentWeekIndex = index;
+
+  CATEGORY_KEYS.forEach(key => {
+    renderList(key, `list-${key}`, week.categories[key]);
+    const countEl = document.getElementById(`regionCount-${key}`);
+    if (countEl) countEl.textContent = t('regionCount', (week.categories[key] || []).length);
+  });
+  setupCardObserver();
+
+  document.getElementById('editionNum').textContent = week.editionNum;
+  document.getElementById('edBarDate').textContent = week.generatedDateDisplay;
+  document.getElementById('footerDate').textContent = week.generatedDateDisplay;
+  document.getElementById('weekRangeText').textContent = `${t('weekRangePrefix')}${week.weekStartDisplay} — ${week.weekEndDisplay}`;
+
+  renderStaticUI();
+  renderWeekPickerOptions();
+}
+
+// ===== 週次選擇下拉選單 =====
+const weekPicker = document.getElementById('weekPicker');
+const weekRangeBtn = document.getElementById('weekRangeBtn');
+const weekPickerPanel = document.getElementById('weekPickerPanel');
+
+function renderWeekPickerOptions(){
+  weekPickerPanel.innerHTML = ALL_WEEKS.map((week, i) => `
+    <button class="week-option ${i === currentWeekIndex ? 'active' : ''}" data-index="${i}">
+      <span class="week-option-edition">第${week.editionNum}期</span>${week.weekStartDisplay} — ${week.weekEndDisplay}
+    </button>
+  `).join('');
+
+  weekPickerPanel.querySelectorAll('.week-option').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const idx = Number(btn.dataset.index);
+      renderWeek(idx);
+      closeWeekPicker();
+    });
+  });
+}
+
+function openWeekPicker(){
+  weekPicker.classList.add('open');
+  weekRangeBtn.setAttribute('aria-expanded','true');
+}
+function closeWeekPicker(){
+  weekPicker.classList.remove('open');
+  weekRangeBtn.setAttribute('aria-expanded','false');
+}
+weekRangeBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  weekPicker.classList.contains('open') ? closeWeekPicker() : openWeekPicker();
+});
+document.addEventListener('click', (e) => {
+  if (!weekPicker.contains(e.target)) closeWeekPicker();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeWeekPicker();
+});
+
+// Refresh button - explanatory only, gives feedback
+document.getElementById('refreshBtn').addEventListener('click', function(){
+  this.textContent = '排程僅示意，請接上資料來源 ↑';
+  setTimeout(() => { this.textContent = '下次更新時間：每週日'; }, 2600);
+});
+
+
+// ===== Dropdown menu logic =====
+const menuBar = document.getElementById('menuBar');
+const menuToggle = document.getElementById('menuToggle');
+const menuPanel = document.getElementById('menuPanel');
+const menuCurrent = document.getElementById('menuCurrent');
+const backHomeBtn = document.getElementById('backHomeBtn');
+
+function openMenu(){
+  menuBar.classList.add('open');
+  menuToggle.setAttribute('aria-expanded','true');
+}
+function closeMenu(){
+  menuBar.classList.remove('open');
+  menuToggle.setAttribute('aria-expanded','false');
+}
+menuToggle.addEventListener('click', () => {
+  menuBar.classList.contains('open') ? closeMenu() : openMenu();
+});
+// Close when clicking outside
+document.addEventListener('click', (e) => {
+  if (!menuBar.contains(e.target)) closeMenu();
+});
+// Close on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMenu();
+  if (e.key === 'Escape' && document.body.classList.contains('single-mode')) exitSingleMode();
+});
+
+// ===== 單分類模式：點選單裡的分類後，只顯示該分類，其餘隱藏 =====
+const regionTransition = document.getElementById('regionTransition');
+const regionTransitionShape = document.getElementById('regionTransitionShape');
+const regionTransitionLabel = document.getElementById('regionTransitionLabel');
+const regionTransitionSub = document.getElementById('regionTransitionSub');
+let transitionTimer = null;
+
+function playRegionTransition(regionKey, onMid){
+  const meta = CATEGORY_META[regionKey];
+  const shape = TRANSITION_SHAPES[regionKey];
+  if (!meta || !shape) { onMid(); return; }
+
+  if (transitionTimer) clearTimeout(transitionTimer);
+
+  regionTransitionShape.innerHTML = shape.svg;
+  regionTransitionShape.style.color = shape.color;
+  regionTransitionLabel.textContent = meta.name[currentLang] ?? meta.name.zh;
+  regionTransitionLabel.style.color = shape.color;
+  regionTransitionSub.textContent = meta.code[currentLang] ?? meta.code.zh;
+
+  // 若使用者開啟「減少動態效果」，直接跳過動畫秀出內容，不播放轉場
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion){ onMid(); return; }
+
+  regionTransition.classList.add('show');
+  // 內容在轉場「全亮」時先切換好，使用者看到的是地圖淡出後直接接上新聞列表
+  transitionTimer = setTimeout(() => {
+    onMid();
+    transitionTimer = setTimeout(() => {
+      regionTransition.classList.remove('show');
+    }, 280);
+  }, 750);
+}
+
+function enterSingleMode(regionKey){
+  const meta = CATEGORY_META[regionKey];
+  if (!meta) return;
+
+  playRegionTransition(regionKey, () => {
+    document.querySelectorAll('.region').forEach(el => el.classList.remove('region-active'));
+    const target = document.getElementById(regionKey);
+    if (!target) return;
+    target.classList.add('region-active');
+    document.body.classList.add('single-mode');
+    menuCurrent.textContent = t('menuCurrentPrefix') + (meta.name[currentLang] ?? meta.name.zh);
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  });
+  closeMenu();
+}
+
+function exitSingleMode(){
+  document.body.classList.remove('single-mode');
+  document.querySelectorAll('.region').forEach(el => el.classList.remove('region-active'));
+  menuCurrent.textContent = t('menuCurrentAll');
+  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+}
+
+backHomeBtn.addEventListener('click', exitSingleMode);
+
+// 選單裡的項目是動態產生的（隨語言切換重新渲染），所以點擊事件用「事件委派」
+// 的方式綁定在固定不變的父容器 menuPanel 上，不需要每次重新產生 HTML 後再重新綁定。
+menuPanel.addEventListener('click', (e) => {
+  const item = e.target.closest('.menu-item');
+  if (!item) return;
+  if (item.dataset.region){
+    e.preventDefault();
+    enterSingleMode(item.dataset.region);
+  } else {
+    // 「自動更新說明」維持原本錨點跳轉行為
+    closeMenu();
+  }
+});
+
+// 注意：選單項目透過 menuPanel 的事件委派處理點擊，動態重新產生 HTML 後不需要重新綁定。
+
+// Update "menuCurrent" label based on scroll position（僅在首頁模式下生效）
+const sections = ['tw','jp','wd','fin','ai','ent','sp'].map(id => document.getElementById(id));
+const sectionObserver = new IntersectionObserver((entries) => {
+  if (document.body.classList.contains('single-mode')) return;
+  entries.forEach(entry => {
+    if (entry.isIntersecting){
+      const meta = CATEGORY_META[entry.target.id];
+      if (meta) menuCurrent.textContent = t('menuCurrentPrefix') + (meta.name[currentLang] ?? meta.name.zh);
+    }
+  });
+}, { rootMargin: '-45% 0px -45% 0px' });
+sections.forEach(s => { if (s) sectionObserver.observe(s); });
+
+// 首次載入：渲染最新一週（index 0），此時所有需要的函式與元素參照都已就位
+renderWeek(0);
+
+</script>
+
+</body>
+</html>
+</html>
